@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Dan_Alexia_Lab2.Data;
 using Dan_Alexia_Lab2.Models;
 
-namespace Dan_Alexia_Lab2.Pages.Books
+namespace Dan_Alexia_Lab2.Pages.Categories
 {
     public class DetailsModel : PageModel
     {
@@ -19,8 +19,7 @@ namespace Dan_Alexia_Lab2.Pages.Books
             _context = context;
         }
 
-        public Book Book { get; set; } = default!;
-        public IEnumerable<Category> Categories { get; set; } = Enumerable.Empty<Category>();
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,21 +28,15 @@ namespace Dan_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book
-                .Include(b => b.Publisher)
-                .Include(b => b.Author)
-                .Include(b => b.BookCategories)
-                    .ThenInclude(bc => bc.Category)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Book == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
-
-            Categories = Book.BookCategories.Select(bc => bc.Category);
-
+            else
+            {
+                Category = category;
+            }
             return Page();
         }
     }
