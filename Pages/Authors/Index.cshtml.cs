@@ -23,7 +23,7 @@ namespace Dan_Alexia_Lab2.Pages.Authors
 
         public async Task OnGetAsync()
         {
-            Author = await _context.Author.ToListAsync();
+            Author = await _context.Authors.ToListAsync();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Dan_Alexia_Lab2.Pages.Publishers
                 return NotFound();
             }
 
-            var publisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == id);
+            var publisher = await _context.Publishers.FirstOrDefaultAsync(m => m.ID == id);
             if (publisher == null)
             {
                 return NotFound();

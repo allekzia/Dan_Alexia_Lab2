@@ -23,7 +23,7 @@ namespace Dan_Alexia_Lab2.Pages.Publishers
 
         public async Task OnGetAsync()
         {
-            Publisher = await _context.Publisher.ToListAsync();
+            Publisher = await _context.Publishers.ToListAsync();
         }
     }
 }

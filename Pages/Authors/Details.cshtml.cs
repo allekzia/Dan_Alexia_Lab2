@@ -28,7 +28,7 @@ namespace Dan_Alexia_Lab2.Pages.Authors
                 return NotFound();
             }
 
-            var author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            var author = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
             if (author == null)
             {
                 return NotFound();

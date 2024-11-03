@@ -29,7 +29,7 @@ namespace Dan_Alexia_Lab2.Pages.Authors
                 return NotFound();
             }
 
-            var author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            var author = await _context.Authors.FirstOrDefaultAsync(m => m.ID == id);
 
             if (author == null)
             {
@@ -49,11 +49,11 @@ namespace Dan_Alexia_Lab2.Pages.Authors
                 return NotFound();
             }
 
-            var author = await _context.Author.FindAsync(id);
+            var author = await _context.Authors.FindAsync(id);
             if (author != null)
             {
                 Author = author;
-                _context.Author.Remove(Author);
+                _context.Authors.Remove(Author);
                 await _context.SaveChangesAsync();
             }
 

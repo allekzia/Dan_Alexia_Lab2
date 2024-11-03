@@ -28,11 +28,10 @@ namespace Dan_Alexia_Lab2.Pages.Books
         {
             BookD = new BookData();
 
-            BookD.Books = await _context.Book
+            BookD.Books = await _context.Books
                 .Include(b => b.Publisher)
                 .Include(b => b.Author)
-                .Include(b => b.BookCategories)
-                .ThenInclude(b => b.Category)
+                .Include(b => b.BookCategories).ThenInclude(b => b.Category)
                 .AsNoTracking()
                 .OrderBy(b => b.Title)
                 .ToListAsync();
@@ -40,9 +39,19 @@ namespace Dan_Alexia_Lab2.Pages.Books
             if (id != null) 
             { 
                 BookID = id.Value; 
-                Book book = BookD.Books
-                    .Where(i => i.ID == id.Value).Single(); 
-                BookD.Categories = book.BookCategories.Select(s => s.Category); 
+                Book book = BookD.Books.Where(b => b.ID == id.Value).SingleOrDefault();
+
+                if (book != null)
+                {
+                    BookD.Categories = book.BookCategories.Select(s => s.Category);
+                }
+            }
+            else
+            {
+                Book = await _context.Books
+                    .Include(b => b.Publisher)
+                    .Include(b => b.Author)
+                    .ToListAsync();
             }
 
         }

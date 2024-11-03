@@ -11,8 +11,7 @@ namespace Dan_Alexia_Lab2.Models
         [Display(Name = "Book Title")]
         public string Title { get; set; }
 
-        public int? AuthorID { get; set; }
-        public Author? Author { get; set; }
+        public int AuthorID { get; set; }
 
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
@@ -20,9 +19,11 @@ namespace Dan_Alexia_Lab2.Models
         [DataType(DataType.Date)]
         public DateTime PublishingDate { get; set; }
 
-        public int? PublisherID { get; set; }   
-        public Publisher? Publisher { get; set; }
+        public int PublisherID { get; set; }   
 
-        public ICollection<BookCategory> BookCategories { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
+
+        public Author Author { get; set; }
+        public Publisher Publisher { get; set; }
     }
 }

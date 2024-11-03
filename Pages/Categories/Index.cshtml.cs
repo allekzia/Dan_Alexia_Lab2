@@ -23,7 +23,7 @@ namespace Dan_Alexia_Lab2.Pages.Categories
 
         public async Task OnGetAsync()
         {
-            Category = await _context.Category.ToListAsync();
+            Category = await _context.Categories.ToListAsync();
         }
     }
 }

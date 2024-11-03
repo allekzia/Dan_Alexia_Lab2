@@ -40,7 +40,7 @@ namespace Dan_Alexia_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Author");
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("Dan_Alexia_Lab2.Models.Book", b =>
@@ -51,13 +51,13 @@ namespace Dan_Alexia_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int?>("AuthorID")
+                    b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6, 2)");
 
-                    b.Property<int?>("PublisherID")
+                    b.Property<int>("PublisherID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PublishingDate")
@@ -73,7 +73,7 @@ namespace Dan_Alexia_Lab2.Migrations
 
                     b.HasIndex("PublisherID");
 
-                    b.ToTable("Book");
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Dan_Alexia_Lab2.Models.BookCategory", b =>
@@ -113,7 +113,7 @@ namespace Dan_Alexia_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Dan_Alexia_Lab2.Models.Publisher", b =>
@@ -130,18 +130,22 @@ namespace Dan_Alexia_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("Dan_Alexia_Lab2.Models.Book", b =>
                 {
                     b.HasOne("Dan_Alexia_Lab2.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorID");
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Dan_Alexia_Lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
-                        .HasForeignKey("PublisherID");
+                        .HasForeignKey("PublisherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
 

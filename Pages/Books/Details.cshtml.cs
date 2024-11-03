@@ -29,11 +29,11 @@ namespace Dan_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book
+            Book = await _context.Books
                 .Include(b => b.Publisher)
                 .Include(b => b.Author)
                 .Include(b => b.BookCategories)
-                    .ThenInclude(bc => bc.Category)
+                .ThenInclude(bc => bc.Category)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 

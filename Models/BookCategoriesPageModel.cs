@@ -9,10 +9,21 @@ namespace Dan_Alexia_Lab2.Models
         public void PopulateAssignedCategoryData(Dan_Alexia_Lab2Context context,
         Book book)
         {
-            var allCategories = context.Category;
+            if(book == null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            if(book.BookCategories == null)
+            {
+                book.BookCategories = new List<BookCategory>();
+            }
+
+            var allCategories = context.Categories;
             var bookCategories = new HashSet<int>(
             book.BookCategories.Select(c => c.CategoryID)); //
             AssignedCategoryDataList = new List<AssignedCategoryData>();
+
             foreach (var cat in allCategories)
             {
                 AssignedCategoryDataList.Add(new AssignedCategoryData
@@ -34,7 +45,7 @@ namespace Dan_Alexia_Lab2.Models
             var selectedCategoriesHS = new HashSet<string>(selectedCategories);
             var bookCategories = new HashSet<int>
             (bookToUpdate.BookCategories.Select(c => c.Category.ID));
-            foreach (var cat in context.Category)
+            foreach (var cat in context.Categories)
             {
                 if (selectedCategoriesHS.Contains(cat.ID.ToString()))
                 {

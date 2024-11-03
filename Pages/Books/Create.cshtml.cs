@@ -21,14 +21,14 @@ namespace Dan_Alexia_Lab2.Pages.Books
 
         public IActionResult OnGet()
         {
-            var authorList = _context.Author.Select(x => new
+            var authorList = _context.Authors.Select(x => new
             {
                 x.ID,
                 FullName = x.LastName + " " + x.FirstName
             });
             
             ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
-            ViewData["PublisherID"] = new SelectList(_context.Publisher, "ID", "PublisherName");
+            ViewData["PublisherID"] = new SelectList(_context.Publishers, "ID", "PublisherName");
             var book = new Book();
             book.BookCategories = new List<BookCategory>();
             PopulateAssignedCategoryData(_context, book);
@@ -52,7 +52,7 @@ namespace Dan_Alexia_Lab2.Pages.Books
                 }
             }
             Book.BookCategories = newBook.BookCategories;
-            _context.Book.Add(Book);
+            _context.Books.Add(Book);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
         }

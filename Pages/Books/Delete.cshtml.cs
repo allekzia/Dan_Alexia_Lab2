@@ -29,7 +29,7 @@ namespace Dan_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            var book = await _context.Books.FirstOrDefaultAsync(m => m.ID == id);
 
             if (book == null)
             {
@@ -49,11 +49,11 @@ namespace Dan_Alexia_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
             if (book != null)
             {
                 Book = book;
-                _context.Book.Remove(Book);
+                _context.Books.Remove(Book);
                 await _context.SaveChangesAsync();
             }
 

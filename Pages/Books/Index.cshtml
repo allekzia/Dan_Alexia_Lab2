@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Book[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(Model => Model.Book[0].PublishingDate)
+                @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
             </th>
             <th> 
                 @Html.DisplayNameFor(model => model.Book[0].Publisher.PublisherName)
@@ -58,16 +58,13 @@
             <td>                 
                 @Html.DisplayFor(modelItem => item.Publisher.PublisherName) 
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookCategories)
-            </td>
             <td> 
                 @{ 
                     foreach (var category in item.BookCategories) 
                     { 
                         @category.Category.ID @:  @category.Category.CategoryName <br/> 
                     } 
-                    } 
+                } 
             </td> 
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

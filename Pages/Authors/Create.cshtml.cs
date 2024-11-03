@@ -35,7 +35,7 @@ namespace Dan_Alexia_Lab2.Pages.Authors
                 return Page();
             }
 
-            _context.Author.Add(Author);
+            _context.Authors.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
