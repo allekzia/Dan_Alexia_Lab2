@@ -18,5 +18,7 @@ namespace Dan_Alexia_Lab2.Data
         public DbSet<Dan_Alexia_Lab2.Models.Publisher> Publishers { get; set; } = default!;
         public DbSet<Dan_Alexia_Lab2.Models.Author> Authors { get; set; } = default!;
         public DbSet<Dan_Alexia_Lab2.Models.Category> Categories { get; set; } = default!;
+        public DbSet<Dan_Alexia_Lab2.Models.Member> Member { get; set; } = default!;
+        public DbSet<Dan_Alexia_Lab2.Models.Borrowing> Borrowing { get; set; } = default!;
     }
 }
