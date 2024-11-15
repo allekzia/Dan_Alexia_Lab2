@@ -40,7 +40,8 @@ namespace Dan_Alexia_Lab2.Pages.Books
             BookD.Books = await _context.Books
                 .Include(b => b.Publisher)
                 .Include(b => b.Author)
-                .Include(b => b.BookCategories).ThenInclude(b => b.Category)
+                .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
                 .AsNoTracking()
                 .OrderBy(b => b.Title)
                 .ToListAsync();
@@ -49,35 +50,43 @@ namespace Dan_Alexia_Lab2.Pages.Books
             {
                 BookD.Books = BookD.Books.Where(s => s.Author.FirstName.Contains(searchString)
                 || s.Author.LastName.Contains(searchString)
+                || s.Author.FullName.Contains(searchString)
                 || s.Title.Contains(searchString));
+            }
 
+            if (id != null)
+            {
+                BookID = id.Value;
+                Book book = BookD.Books
+                    .Where(i => i.ID == id.Value).SingleOrDefault();
 
-                if (id != null)
+                if (book != null)
                 {
-                    BookID = id.Value;
-                    Book book = BookD.Books.Where(b => b.ID == id.Value).SingleOrDefault();
-
-                    if (book != null)
-                    {
-                        BookD.Categories = book.BookCategories.Select(s => s.Category);
-                    }
+                    BookD.Categories = book.BookCategories.Select(s => s.Category);
                 }
-                else
-                {
-                    Book = await _context.Books
-                        .Include(b => b.Publisher)
-                        .Include(b => b.Author)
-                        .ToListAsync();
-                }
+            }
+            else
+            {
+                Book = await _context.Books
+                    .Include(b => b.Publisher)
+                    .Include(b => b.Author)
+                    .ToListAsync();
+            }
 
-                switch (sortOrder)
-                {
-                    case "title_desc": BookD.Books = BookD.Books.OrderByDescending(s => s.Title); break;
-                    case "author_desc": BookD.Books = BookD.Books.OrderByDescending(s => s.Author.FullName); break;
-                    case "author": BookD.Books = BookD.Books.OrderBy(s => s.Author.FullName); break;
-                    default: BookD.Books = BookD.Books.OrderBy(s => s.Title); break;
-
-                }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    BookD.Books = BookD.Books.OrderByDescending(s => s.Title);
+                    break;
+                case "author_desc":
+                    BookD.Books = BookD.Books.OrderByDescending(s => s.Author.FullName);
+                    break;
+                case "author":
+                    BookD.Books = BookD.Books.OrderBy(s => s.Author.FullName);
+                    break;
+                default:
+                    BookD.Books = BookD.Books.OrderBy(s => s.Title);
+                    break;
             }
         }
     }
